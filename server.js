@@ -1,15 +1,14 @@
 var express = require('express');
-
 var app = express();
 
+app.listen(3000, function() {
+  console.log('Listening on port 3000');
+});
+
 app.get('/', function(request, response) {
-	response.send('Liversedge — European Capital of Culture 2016');
+  response.status(200).send('Liversedge');
 });
 
 app.get('/joe', function(request, response) {
-	response.sendFile('joe.html');
-});
-
-var server = app.listen(3000, function() {
-	console.log('Listening on port 3000');
+  response.sendFile('/joe.html', {root: 'public'});
 });
