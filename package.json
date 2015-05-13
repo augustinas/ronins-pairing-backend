@@ -1,0 +1,28 @@
+{
+  "name": "ronins-pairing-backend",
+  "version": "0.0.1",
+  "description": "Provides backend API support for the Ronins Pairing App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/augustinas/ronins-pairing-backend.git"
+  },
+  "keywords": [
+    "NodeJS",
+    "ronin",
+    "pairing",
+    "programming"
+  ],
+  "author": "Dan Blakeman Iciar Novo Ilya Faybisovich Augustinas Markevicius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/augustinas/ronins-pairing-backend/issues"
+  },
+  "homepage": "https://github.com/augustinas/ronins-pairing-backend",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
