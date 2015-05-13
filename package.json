@@ -4,7 +4,7 @@
   "description": "Provides backend API support for the Ronins Pairing App",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./tests/server_spec.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,10 @@
   "homepage": "https://github.com/augustinas/ronins-pairing-backend",
   "dependencies": {
     "express": "^4.12.3"
+  },
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "nodemon": "^1.3.7",
+    "superagent": "^1.2.0"
   }
 }
