@@ -1,5 +1,8 @@
 var request = require('superagent');
 var expect = require('expect.js');
+var mongoose = require('mongoose');
+maker = require('../lib/makers');
+mongoose.connect('mongodb://localhost/maker_backend_test');
 
 describe('homepage', function(){
 
@@ -14,9 +17,30 @@ describe('homepage', function(){
 
   it('mentions joe', function(done){
     request.get('localhost:3000/joe').end(function(err, res){
-      console.log(res);
       done();
     })
   });
 
+});
+
+describe('listing makers', function() {
+  beforeEach(function(done) {
+    maker.register('Joe', function(doc) {
+      firstMaker = doc;
+      done();
+    });
+  });
+
+  afterEach(function(done) {
+    maker.model.remove({}, function() {
+      done();
+    });
+  });
+
+  it('lists makers', function(done) {
+    request.get('localhost:3000').end(function(err, res) {
+      expect(res.body).to.contain({id: 1, name: 'Joe'});
+      done();
+    });
+  });
 });
