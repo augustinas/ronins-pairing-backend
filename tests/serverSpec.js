@@ -96,4 +96,34 @@ describe('creating "session"', function(){
 
 });
 
+describe('retrieving makers', function() {
+
+  var testMaker;
+
+  beforeEach(function(done) {
+
+    Maker({name: 'Joe'}).save(function(err, doc) {
+      testMaker = doc;
+      done();
+    });
+  });
+
+  afterEach(function(done) {
+    Maker.remove({}, function() {
+      done();
+    });
+  });
+
+  it('returns a maker when given an ID', function(done) {
+    request.get('localhost:3000/makers/' + testMaker.id).end(function(err, res) {
+      console.log(res);
+      expect(res.body.name).to.contain('Joe');
+      expect(res.body._id).to.equal(testMaker.id);
+      expect(res.body.pairedWith).to.equal([]);
+      expect(res.body.notPairedWith).to.equal([]);
+      done();
+    });
+  });
+});
+
 

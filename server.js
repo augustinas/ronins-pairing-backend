@@ -32,3 +32,13 @@ app.get('/makers/session/:name', function(request, response) {
     response.json(doc[0]);
   });
 });
+
+app.get('/makers/:id', function(request, response) {
+  UserModel.find({_id: request.params.id}, function(err, doc) {
+    something = JSON.parse(JSON.stringify(doc[0]));
+    something.pairedWith = [];
+    something.notPairedWith = [];
+    console.log(something);
+    response.json(something);
+  });
+});
