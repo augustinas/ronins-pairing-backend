@@ -26,3 +26,9 @@ app.post('/makers', function(request, response) {
     response.json(doc);
   });
 });
+
+app.get('/makers/session/:name', function(request, response) {
+  UserModel.find({name: request.params.name}, function(err, doc) {
+    response.json(doc[0]);
+  });
+});
