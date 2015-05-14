@@ -61,6 +61,8 @@ describe('adding makers', function() {
     request.post('localhost:3000/makers').send({name: 'Joe'}).end(function(err, res) {
       Maker.find({}, function(error, doc) {
         expect(doc[0].name).to.equal('Joe');
+        expect(res.body.name).to.equal('Joe');
+        done();
       });
     });
   });

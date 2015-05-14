@@ -3,6 +3,9 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/maker_backend_test');
 var UserModel = require('./app/models/maker.js');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 app.listen(3000, function() {
   console.log('Listening on port 3000');
@@ -16,5 +19,10 @@ app.get('/makers', function(request, response) {
   UserModel.find({}, function(err, doc) {
     response.json({makers: doc});
   });
+});
 
+app.post('/makers', function(request, response) {
+  UserModel.create(request.body, function(err, doc) {
+    response.json(doc);
+  });
 });

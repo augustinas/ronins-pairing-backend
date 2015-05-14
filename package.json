@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/augustinas/ronins-pairing-backend",
   "dependencies": {
+    "body-parser": "^1.12.4",
     "express": "^4.12.3",
     "mongoose": "^4.0.3"
   },
