@@ -49,3 +49,19 @@ describe('listing makers', function() {
     });
   });
 });
+
+describe('adding makers', function() {
+  afterEach(function(done) {
+    Maker.remove({}, function() {
+      done();
+    });
+  });
+
+  it('adds a maker', function(done) {
+    request.post('localhost:3000/makers').send({name: 'Joe'}).end(function(err, res) {
+      Maker.find({}, function(error, doc) {
+        expect(doc[0].name).to.equal('Joe');
+      });
+    });
+  });
+});
