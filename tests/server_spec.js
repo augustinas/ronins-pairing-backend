@@ -27,24 +27,24 @@ describe('listing makers', function() {
   var toSave = new Maker({
       name: 'Joe'
   });
-  
+
   beforeEach(function(done) {
-    
+
     toSave.save(function(err) {
-      console.log(toSave);
       done();
     });
   });
 
   afterEach(function(done) {
-    Maker.model.remove({}, function() {
+    Maker.remove({}, function() {
       done();
     });
   });
 
   it('lists makers', function(done) {
-    request.get('localhost:3000').end(function(err, res) {
-      expect(res.body).to.contain({id: toSave._id, name: 'Joe'});
+    request.get('localhost:3000/makers').end(function(err, res) {
+      expect(res.body.makers[0].name).to.contain('Joe');
+      expect(res.body.makers[0]._id).to.equal(toSave.id);
       done();
     });
   });

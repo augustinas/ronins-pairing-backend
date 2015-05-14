@@ -36,7 +36,7 @@ MVP4
 API Expectations
 ----------------
 
-GET /makers => { makers: [ { id: 1, name: "Joe" }, { id: 2, name: "Mark" } ] }
+GET /makers => { makers: [ { id: 1, name: "Joe" }, { _id: 2, name: "Mark" } ] }
 POST /makers (name="Joe") => { id: 1, name: "Joe" }
 
 GET /makers/session/:name => { id: 1, name: "Joe" }
