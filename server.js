@@ -22,6 +22,12 @@ app.get('/makers', function(request, response) {
   });
 });
 
+app.get('/pairs', function(request, response) {
+  PairModel.find({}).populate('pairPartner1 pairPartner2').exec(function(err, docs) {
+    response.json({pairs: docs});
+  });
+});
+
 app.post('/makers', function(request, response) {
   UserModel.create(request.body, function(err, doc) {
     response.json(doc);

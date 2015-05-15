@@ -162,5 +162,18 @@ describe('Pair Management', function() {
       done();
     });
   });
+
+  it('lists pairs', function(done) {
+    request.post('localhost:3000/pairs').send({pairPartner1: testMaker1.id , pairPartner2: testMaker2.id}).end(function(err, res) {
+        request.get('localhost:3000/pairs').end(function(err, res) {
+        expect(res.body.pairs[0].pairPartner1.name).to.contain('Joe');
+        expect(res.body.pairs[0].pairPartner2.name).to.contain('Mark');
+        expect(res.body.pairs[0].pairPartner1._id).to.equal(testMaker1.id);
+        expect(res.body.pairs[0].pairPartner2._id).to.equal(testMaker2.id);
+        expect(res.body.pairs.length).to.equal(1);
+        done();
+      });
+    });
+  });
 });
 
