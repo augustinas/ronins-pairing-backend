@@ -3,6 +3,7 @@ var expect = require('expect.js');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/maker_backend_test');
 Maker = require('../app/models/maker');
+Pair = require('../app/models/pair')
 
 describe('homepage', function(){
 
@@ -96,34 +97,70 @@ describe('creating "session"', function(){
 
 });
 
-describe('retrieving makers', function() {
+// describe('retrieving makers', function() {
 
-  var testMaker;
+//   var testMaker;
+
+//   beforeEach(function(done) {
+
+//     Maker({name: 'Joe'}).save(function(err, doc) {
+//       testMaker = doc;
+//       done();
+//     });
+//   });
+
+//   afterEach(function(done) {
+//     Maker.remove({}, function() {
+//       done();
+//     });
+//   });
+
+//   it('returns a maker when given an ID', function(done) {
+//     request.get('localhost:3000/makers/' + testMaker.id).end(function(err, res) {
+//       expect(res.body.name).to.contain('Joe');
+//       expect(res.body._id).to.equal(testMaker.id);
+//       expect(res.body.pairedWith).to.equal([]);
+//       expect(res.body.notPairedWith).to.equal([]);
+//       done();
+//     });
+//   });
+// });
+
+describe('Pair Management', function() {
+
+  var testMaker1, testMaker2;
 
   beforeEach(function(done) {
 
-    Maker({name: 'Joe'}).save(function(err, doc) {
-      testMaker = doc;
+    Maker.create({name: 'Joe'}, function(err, doc) {
+      testMaker1 = doc;
+    });
+    Maker.create({name: 'Mark'}, function(err, doc) {
+      testMaker2 = doc;
       done();
     });
   });
 
+
   afterEach(function(done) {
+    Pair.remove({}, function() {
+    });
     Maker.remove({}, function() {
       done();
     });
   });
 
-  it('returns a maker when given an ID', function(done) {
-    request.get('localhost:3000/makers/' + testMaker.id).end(function(err, res) {
-      console.log(res);
-      expect(res.body.name).to.contain('Joe');
-      expect(res.body._id).to.equal(testMaker.id);
-      expect(res.body.pairedWith).to.equal([]);
-      expect(res.body.notPairedWith).to.equal([]);
+  it('can add a pair', function(done) {
+    request.post('localhost:3000/pairs').send({pairPartner1: testMaker1.id , pairPartner2: testMaker2.id}).end(function(err, res) {
+      Pair.find({}, function(error, docs) {
+        expect(docs.length).to.equal(1);
+      });
+      expect(res.body.pairPartner1._id).to.equal(testMaker1.id);
+      expect(res.body.pairPartner1.name).to.equal(testMaker1.name);
+      expect(res.body.pairPartner2._id).to.equal(testMaker2.id);
+      expect(res.body.pairPartner2.name).to.equal(testMaker2.name);
       done();
     });
   });
 });
-
 

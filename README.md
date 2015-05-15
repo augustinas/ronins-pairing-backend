@@ -62,13 +62,13 @@ POST /makers (name="Joe") => { id: 1, name: "Joe" }
 
 GET /makers/session/:name => { id: 1, name: "Joe" }
 
-
-GET /makers/:id => { pairedWith: [ {id: 1, name: "Joe"} ], notPairedWith: [ { id: 1, name: "Joe" }, { id: 2, name: "Mark" } ], id: 1, name: "Joe" }
+POST /pairs (pairPartner1 = 1, pairPartner2 = 2) => {pairPartner1: {id: 1, name: "Joe"}, pairPartner2: { id: 2, name: "Mark" } }
 
 
 GET /pairs => {pairs: [{pairPartner1: {id: 1, name: "Joe"}, pairPartner2: { id: 2, name: "Mark" }}] }
 
-POST /pairs (pairPartner1 = 1, pairPartner2 = 2)
+
+GET /makers/:id => { pairedWith: [ {id: 1, name: "Joe"} ], notPairedWith: [ { id: 1, name: "Joe" }, { id: 2, name: "Mark" } ], id: 1, name: "Joe" }
 
 
 Technologies

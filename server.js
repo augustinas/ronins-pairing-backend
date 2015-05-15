@@ -3,6 +3,7 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/maker_backend_test');
 var UserModel = require('./app/models/maker.js');
+var PairModel = require('./app/models/pair.js');
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -24,6 +25,19 @@ app.get('/makers', function(request, response) {
 app.post('/makers', function(request, response) {
   UserModel.create(request.body, function(err, doc) {
     response.json(doc);
+  });
+});
+
+app.post('/pairs', function(request, response) {
+  var partner1, partner2;
+  UserModel.find({_id: request.body.pairPartner1}, function(err, docs){
+    partner1 = docs[0];
+  });
+  UserModel.find({_id: request.body.pairPartner2}, function(err, docs){
+    partner2 = docs[0];
+    PairModel.create({pairPartner1: partner1, pairPartner2: partner2}, function(err, doc) {
+      response.json(doc);
+    });
   });
 });
 
